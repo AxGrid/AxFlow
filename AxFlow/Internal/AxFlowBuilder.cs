@@ -6,10 +6,22 @@ public class AxFlowBuilder<TC, TS, TA>
     where TA : struct
 {
     
-    private readonly AxFlow<TC, TS, TA> flow;
+    private readonly AxFlow<TC, TS, TA> _flow;
+    
+    public AxFlowBuilder<TC, TS, TA> On(TA action, IAxFlow<TC, TS, TA>.DFlowAction actionHandler)
+    {
+        _flow.AddAction(action, actionHandler);
+        return this;
+    }
+
+
+    public IAxFlow<TC, TS, TA> Build()
+    {
+        return _flow;
+    }
     
     internal AxFlowBuilder(AxFlow<TC, TS, TA> flow)
     {
-        this.flow = flow;
+        this._flow = flow;
     }
 }

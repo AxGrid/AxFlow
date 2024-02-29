@@ -14,6 +14,7 @@ public class Tests
     {
         var flow = AxFlow<TestContext, State, Action>.Create();
         Assert.NotNull(flow);
+        
     }
 }
 
@@ -37,4 +38,9 @@ public class TestContext : IAxFlowContext<State, Action>
     public Action? Action { get; set; }
     public Action? LastAction { get; }
     public Exception Throwable { get; set; }
+    
+    public TestContext()
+    {
+        this.State = TestAxFlow.State.A;
+    }
 }
