@@ -1,6 +1,6 @@
 namespace AxFlow;
 
-public interface IAxFlowContext<TS, TA> 
+public interface IFlowContext<TS, TA> 
     where TS : struct
     where TA : struct
 {
