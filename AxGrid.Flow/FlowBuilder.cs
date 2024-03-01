@@ -36,7 +36,7 @@ public class FlowBuilder<TC,TS,TA>
                     case Terminations.Terminate:
                         throw new FlowTerminateExceptions();
                     case Terminations.TerminateAndRetry:
-                        throw new FlowRetryException();
+                        throw new FlowRetryException<TA>();
                 }
             }
             _actions[null][action].Add(new Flow<TC, TS, TA>.ActionHolder(_id++, RMethod));
@@ -80,7 +80,7 @@ public class FlowBuilder<TC,TS,TA>
                     case Terminations.Terminate:
                         throw new FlowTerminateExceptions();
                     case Terminations.TerminateAndRetry:
-                        throw new FlowRetryException();
+                        throw new FlowRetryException<TA>();
                 }
 
             }
@@ -141,10 +141,10 @@ public class FlowBuilder<TC,TS,TA>
     public Flow<TC, TS, TA> Build(TS startState)
     {
         Flow<TC, TS, TA> flow = new(startState);
-        foreach (var kv in flow._actions)
+        foreach (var kv in flow.Actions)
         {
-            var stateDict = flow._actions[kv.Key];
-            var errDict = flow._exceptions[kv.Key];
+            var stateDict = flow.Actions[kv.Key];
+            var errDict = flow.Exceptions[kv.Key];
             foreach (var aKey in Enum.GetValues(typeof(TA)))
             {
                 if (!stateDict.ContainsKey((TA) aKey))
@@ -158,7 +158,7 @@ public class FlowBuilder<TC,TS,TA>
         {
             if (skv.Key.Item != null)
             {
-                var stateActions = flow._actions[(TS) skv.Key];
+                var stateActions = flow.Actions[(TS) skv.Key];
                 foreach (var akv in skv.Value)
                 {
                     if (akv.Key.Item != null)
@@ -170,7 +170,7 @@ public class FlowBuilder<TC,TS,TA>
             }
             else
             {
-                foreach (var stateActions in flow._actions.Values)
+                foreach (var stateActions in flow.Actions.Values)
                 {
                     foreach (var akv in skv.Value)
                     {
@@ -187,7 +187,7 @@ public class FlowBuilder<TC,TS,TA>
         {
             if (skv.Key.Item != null)
             {
-                var stateActions = flow._exceptions[(TS) skv.Key];
+                var stateActions = flow.Exceptions[(TS) skv.Key];
                 foreach (var akv in skv.Value)
                 {
                     if (akv.Key.Item != null)
@@ -199,7 +199,7 @@ public class FlowBuilder<TC,TS,TA>
             }
             else
             {
-                foreach (var stateActions in flow._exceptions.Values)
+                foreach (var stateActions in flow.Exceptions.Values)
                 {
                     foreach (var akv in skv.Value)
                     {
@@ -213,9 +213,9 @@ public class FlowBuilder<TC,TS,TA>
             }
         }
         
-        foreach (var actions in flow._actions.SelectMany(akv => akv.Value))
+        foreach (var actions in flow.Actions.SelectMany(akv => akv.Value))
             actions.Value.Sort();
-        foreach (var actions in flow._exceptions.SelectMany(akv => akv.Value))
+        foreach (var actions in flow.Exceptions.SelectMany(akv => akv.Value))
             actions.Value.Sort();
         return flow;
     }
@@ -243,7 +243,7 @@ public class FlowBuilder<TC,TS,TA>
                         case Terminations.Terminate:
                             throw new FlowTerminateExceptions();
                         case Terminations.TerminateAndRetry:
-                            throw new FlowRetryException();
+                            throw new FlowRetryException<TA>();
                     }
                 }
                 _actions[action].Add(new Flow<TC, TS, TA>.ActionHolder(_id++, RMethod));
@@ -280,7 +280,7 @@ public class FlowBuilder<TC,TS,TA>
                         case Terminations.Terminate:
                             throw new FlowTerminateExceptions();
                         case Terminations.TerminateAndRetry:
-                            throw new FlowRetryException();
+                            throw new FlowRetryException<TA>();
                     }
                 }
                 _exceptions[action].Add(new Flow<TC, TS, TA>.ExceptionHolder(_id++, ex ?? typeof(Exception), RMethod));

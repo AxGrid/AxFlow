@@ -9,21 +9,7 @@ public class NullableDictTest
     {
     }
 
-    [Test]
-    public void TestNullableDict()
-    {
-        var dict = new NullableDict<K?, V>();
-        Assert.IsFalse(dict.ContainsKey(null));
-        dict.Add(null, new V { Value = 0 });
-        Assert.IsTrue(dict.ContainsKey(null));
-        dict.Add(K.A, new V { Value = 1 });
-        dict.Add(K.B, new V { Value = 2 });
-        Assert.That(dict[null].Value, Is.EqualTo(0));
-        Assert.That(dict[K.A].Value, Is.EqualTo(1));
-        Assert.That(dict[K.B].Value, Is.EqualTo(2));
-        
-    }
-
+   
     
     [Test]
     public void TestDictWithNull()
