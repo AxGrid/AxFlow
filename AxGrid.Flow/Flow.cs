@@ -33,15 +33,17 @@ public class Flow<TC, TS, TA>
                 if (count < MaxRetry)
                 {
                     if (e.Action != null)
-                        Execute(ctx, (TA)e.Action, count + 1);
+                        Execute(ctx, e.Action ?? action, count + 1);
                     else
                         Execute(ctx, action, count + 1);
                 }
                 else
                     throw new StackOverflowException($"Max retry reached ({MaxRetry})");
+                return;
             } catch (Exception e) {
                 ctx.Throwable = e;
                 ExecuteException(ctx, action, e, count + 1);
+                return;
             }
         }
     }
@@ -71,6 +73,7 @@ public class Flow<TC, TS, TA>
                 }
                 else
                     throw new StackOverflowException($"Max retry reached ({MaxRetry})");
+                return;
             }
         }
     }
