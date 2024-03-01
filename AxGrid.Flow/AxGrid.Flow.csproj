@@ -5,6 +5,7 @@
         <Nullable>disable</Nullable>
         <TargetFrameworks>net8.0;net462</TargetFrameworks>
         <LangVersion>10</LangVersion>
+        <RootNamespace>AxFlow</RootNamespace>
     </PropertyGroup>
 
 </Project>

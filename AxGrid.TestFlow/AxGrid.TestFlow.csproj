@@ -7,6 +7,7 @@
 
         <IsPackable>false</IsPackable>
         <IsTestProject>true</IsTestProject>
+        <RootNamespace>TestAxFlow</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
@@ -22,7 +23,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\AxFlow\AxFlow.csproj" />
+      <ProjectReference Include="..\AxGrid.Flow\AxGrid.Flow.csproj" />
     </ItemGroup>
 
 </Project>

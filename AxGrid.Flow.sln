@@ -1,8 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AxFlow", "AxFlow\AxFlow.csproj", "{C6D1279E-9A0D-42C2-9253-19E65FF57F3B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AxGrid.Flow", "AxGrid.Flow\AxGrid.Flow.csproj", "{C6D1279E-9A0D-42C2-9253-19E65FF57F3B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestAxFlow", "TestAxFlow\TestAxFlow.csproj", "{8D23CFD1-4426-4098-9429-A3C48AD42A87}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AxGrid.TestFlow", "AxGrid.TestFlow\AxGrid.TestFlow.csproj", "{8D23CFD1-4426-4098-9429-A3C48AD42A87}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

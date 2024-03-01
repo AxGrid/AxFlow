@@ -1,3 +1,4 @@
+#nullable enable
 using System.Collections.ObjectModel;
 
 namespace AxFlow;
@@ -12,7 +13,7 @@ public class NullableDict<TK, TV> : IDictionary<TK, TV>
     {
     }
 
-    public void Add(TK key, TV value)
+    public void Add(TK? key, TV value)
     {
         if (key == null)
             if (_hasNull)
