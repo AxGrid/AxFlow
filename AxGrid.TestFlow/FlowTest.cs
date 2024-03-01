@@ -10,7 +10,7 @@ public class FlowTest
     }
 
     [Test]
-    public void CreateAndExecuteAxFlow()
+    public void TestCreateFlow()
     {
         var flow = Flow<TestContext, State, Action>.Create()
             .On(State.B, builder =>
@@ -37,16 +37,31 @@ public class FlowTest
             .Build(State.A);
         
         Console.WriteLine(flow.ToString());
-        
-        // Assert.NotNull(flow);
-        // var ctx = new TestContext();
-        // Assert.IsNull(ctx.State);
-        // flow.Execute(ctx, Action.X);
-        // Assert.That(ctx.State, Is.EqualTo(State.A));
-        // ctx.State = State.B;
-        // ctx = flow.Execute(ctx, Action.X);
-        // Assert.That(ctx.State, Is.EqualTo(State.C));
     }
+
+    [Test]
+    public void TestExecuteFlow()
+    {
+        var flow = Flow<TestContext, State, Action>.Create()
+            .Catch((ctx, ex) =>
+            {
+                Console.WriteLine($"Found exception: {ctx.Throwable.Message}");
+                ctx.Throwable = null;
+            })
+            .On(State.A, builder =>
+            {
+                builder.Where(Action.X, ctx =>
+                {
+                    throw new Exception("Oops!");
+                });
+                builder.To(Action.X, State.B);
+            }).Build(State.A);
+        var ctx = new TestContext();
+        flow.Execute(ctx, Action.X);
+        Assert.IsNull(ctx.Throwable);
+        Assert.That(ctx.State, Is.EqualTo(State.A));
+    }
+
 }
 
 public enum State

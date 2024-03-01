@@ -27,11 +27,9 @@ public class Flow<TC, TS, TA>
             try
             {
                 executions.Method(ctx);   
-            }catch (FlowTerminateExceptions)
-            {
+            } catch (FlowTerminateExceptions) {
                 return;
-            }catch (FlowRetryException<TA> e)
-            {
+            } catch (FlowRetryException<TA> e) {
                 if (count < MaxRetry)
                 {
                     if (e.Action != null)
@@ -41,9 +39,7 @@ public class Flow<TC, TS, TA>
                 }
                 else
                     throw new StackOverflowException($"Max retry reached ({MaxRetry})");
-            }
-            catch (Exception e)
-            {
+            } catch (Exception e) {
                 ctx.Throwable = e;
                 ExecuteException(ctx, action, e, count + 1);
             }
