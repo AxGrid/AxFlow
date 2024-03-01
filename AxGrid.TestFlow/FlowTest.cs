@@ -17,6 +17,7 @@ public class FlowTest
             {
                 builder.Where(Action.X, (ctx) => { });
                 builder.Where(null, ctx => { });
+                builder.CatchTo(Action.Z, null, State.B);
             })
             //.With((ctx) => { })
             .With(Action.X,(ctx) => { })
@@ -25,12 +26,14 @@ public class FlowTest
                 builder.Where(Action.Z, (ctx) => { });
                 builder.Where(null, ctx => { });
                 builder.Where(Action.Y, (ctx) => { });
+                builder.CatchTo(Action.Z, null, State.B);
             })
             .With((ctx) => { })
             .On(State.B, builder =>
             {
                 builder.Where(Action.Z, (ctx) => { });
             })
+            .CatchTo(State.B)
             .Build(State.A);
         
         Console.WriteLine(flow.ToString());

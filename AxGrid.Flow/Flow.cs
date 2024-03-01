@@ -85,7 +85,7 @@ public class Flow<TC, TS, TA>
         }
     }
     
-    internal class ExceptionHolder
+    internal class ExceptionHolder : IEquatable<ExceptionHolder> , IComparable<ExceptionHolder>
     {
         
         public int Id { get; }
@@ -108,7 +108,18 @@ public class Flow<TC, TS, TA>
             Throwable = throwable;
             EAction = action;
         }
-            
+
+        public bool Equals(ExceptionHolder other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return Id == other.Id;
+        }
+
+        public int CompareTo(ExceptionHolder other)
+        {
+            return ReferenceEquals(null, other) ? 1 : Id.CompareTo(other.Id);
+        }
     }
     
 }

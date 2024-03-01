@@ -138,7 +138,6 @@ public class FlowBuilder<TC,TS,TA>
         }
         return this;
     }
-
     public Flow<TC, TS, TA> Build(TS startState)
     {
         Flow<TC, TS, TA> flow = new(startState);
